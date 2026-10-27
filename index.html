@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алканы — полный справочник</title>
+<style>
+  :root{
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --ink:#1d2733;
+    --muted:#5b6b7f;
+    --accent:#2f6fed;
+    --accent2:#12b886;
+    --line:#e2e8f0;
+    --radius:14px;
+    --shadow:0 6px 24px rgba(23,43,77,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+  }
+  header{
+    background:linear-gradient(135deg,#1e3a8a 0%,#2f6fed 55%,#12b886 100%);
+    color:#fff;
+    padding:56px 20px 44px;
+    text-align:center;
+  }
+  header h1{
+    margin:0 0 10px;
+    font-size:clamp(26px,4.5vw,44px);
+    letter-spacing:-.5px;
+  }
+  header p{
+    margin:0;
+    opacity:.9;
+    font-size:clamp(14px,2vw,18px);
+  }
+  .formula-badge{
+    display:inline-block;
+    margin-top:18px;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.35);
+    padding:8px 20px;
+    border-radius:999px;
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:.5px;
+  }
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  nav .inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    gap:6px;
+    padding:10px 16px;
+    white-space:nowrap;
+  }
+  nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:999px;
+    transition:.2s;
+  }
+  nav a:hover{background:#eef3fd;color:var(--accent)}
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:32px 16px 80px;
+  }
+  section{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:clamp(20px,3vw,34px);
+    margin-bottom:26px;
+    scroll-margin-top:76px;
+  }
+  section h2{
+    margin:0 0 18px;
+    font-size:clamp(20px,2.6vw,26px);
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  section h2::before{
+    content:"";
+    width:6px;
+    height:26px;
+    border-radius:4px;
+    background:linear-gradient(180deg,var(--accent),var(--accent2));
+    flex:none;
+  }
+  h3{
+    font-size:17px;
+    margin:24px 0 8px;
+    color:#16305c;
+  }
+  p{margin:0 0 12px}
+  ul,ol{margin:0 0 14px;padding-left:22px}
+  li{margin-bottom:7px}
+  code,.formula{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:#eef3fd;
+    color:#16305c;
+    padding:2px 7px;
+    border-radius:6px;
+    font-size:.95em;
+  }
+  .formula{display:inline-block;padding:4px 10px;font-weight:600}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+    margin:16px 0;
+  }
+  .tile{
+    background:#f8fafd;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+  }
+  .tile h4{margin:0 0 6px;font-size:15px;color:var(--accent)}
+  .tile p{margin:0;font-size:14px;color:var(--muted)}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+    margin:12px 0 6px;
+    overflow:hidden;
+    border-radius:10px;
+  }
+  th,td{
+    padding:10px 12px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+  }
+  th{
+    background:#eef3fd;
+    color:#16305c;
+    font-weight:700;
+    font-size:13.5px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+  }
+  tbody tr:hover{background:#f8fafd}
+  .table-wrap{overflow-x:auto}
+  .reaction{
+    background:#f8fafd;
+    border-left:4px solid var(--accent2);
+    border-radius:0 10px 10px 0;
+    padding:12px 16px;
+    margin:10px 0;
+    font-family:"SFMono-Regular",Consolas,monospace;
+    font-size:14.5px;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .calc{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:flex-end;
+    margin-bottom:18px;
+  }
+  .
+calc label{font-size:14px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+  .calc input{
+    width:120px;
+    padding:11px 14px;
+    font-size:16px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    outline:none;
+    transition:.2s;
+  }
+  .calc input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(47,111,237,.12)}
+  .calc button{
+    padding:11px 22px;
+    font-size:15px;
+    font-weight:700;
+    color:#fff;
+    background:linear-gradient(135deg,var(--accent),#1e3a8a);
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .calc button:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(47,111,237,.3)}
+  .result{
+    background:linear-gradient(135deg,#eef3fd,#e8fbf3);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px;
+    font-size:15px;
+    display:none;
+  }
+  .result.show{display:block}
+  .result .big{
+    font-size:26px;
+    font-weight:800;
+    color:#16305c;
+    letter-spacing:.5px;
+    margin-bottom:10px;
+  }
+  .result .row{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed #cbd7e8}
+  .result .row:last-child{border-bottom:none}
+  .result .row span:first-child{color:var(--muted)}
+  .result .row span:last-child{font-weight:700}
+  .note{
+    background:#fff9e6;
+    border-left:4px solid #f5b301;
+    border-radius:0 10px 10px 0;
+    padding:12px 16px;
+    margin:14px 0;
+    font-size:14.5px;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    padding:0 16px 40px;
+  }
+  @media print{
+    nav,header{position:static}
+    section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+    .calc{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Алканы</h1>
+  <p>Предельные (насыщенные) углеводороды — строение, свойства, получение</p>
+  <div class="formula-badge">C<sub>n</sub>H<sub>2n+2</sub></div>
+</header>
+
+<nav>
+  <div class="inner">
+    <a href="#definition">Определение</a>
+    <a href="#formula">Общая формула</a>
+    <a href="#isomerism">Изомерия</a>
+    <a href="#physical">Физические свойства</a>
+    <a href="#chemical">Химические свойства</a>
+    <a href="#synthesis">Получение</a>
+    <a href="#calc">Калькулятор</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1. ОПРЕДЕЛЕНИЕ -->
+<section id="definition">
+  <h2>Определение</h2>
+  <p>
+    <strong>Алканы</strong> (предельные, насыщенные углеводороды, парафины) — это углеводороды,
+    в молекулах которых атомы углерода соединены между собой только <strong>одинарными (σ-) связями</strong>,
+    а все остальные валентности углерода насыщены атомами водорода.
+  </p>
+  <p>
+    Атомы углерода в алканах находятся в состоянии <strong>sp³-гибридизации</strong>: четыре гибридные
+    орбитали направлены к вершинам тетраэдра под углом ≈ <strong>109°28′</strong>. Поэтому молекулы
+    алканов имеют зигзагообразное (для высших — свёрнутое) строение, а связь C–C является
+    неполярной, связь C–H — слабополярной.
+  </p>
+  <div class="grid">
+    <div class="tile">
+      <h4>Тип гибридизации</h4>
+      <p>sp³ у всех атомов углерода</p>
+    </div>
+    <div class="tile">
+      <h4>Валентный угол</h4>
+      <p>≈ 109°28′ (тетраэдрический)</p>
+    </div>
+    <div class="tile">
+      <h4>Длина связи C–C</h4>
+      <p>≈ 0,154 нм (одинарная)</p>
+    </div>
+    <div class="tile">
+      <h4>Характер связей</h4>
+      <p>σ-связи, малополярны, прочны</p>
+    </div>
+  </div>
+  <p>
+    Простейший представитель — <strong>метан CH₄</strong>. Общая формула гомологического ряда
+    C<sub>n</sub>H<sub>2n+2</sub>, где <em>n</em> ≥ 1.
+  </p>
+</section>
+
+<!-- 2. ОБЩАЯ ФОРМУЛА -->
+<section id="formula">
+  <h2>Общая формула и гомологический ряд</h2>
+  <p>
+    Гомологический ряд алканов выражается формулой:
+  </p>
+  <p style="text-align:center;font-size:22px;">
+    <span class="formula">C<sub>n</sub>H<sub>2n+2</sub></span>
+  </p>
+  <p>
+    Каждый следующий гомолог отличается от предыдущего на группу <strong>–CH₂–</strong>
+    (гомологическая разность, 14 а.е.м.). Молярная масса алкана:
+    <span class="formula">M = 14n + 2</span> г/моль.
+</p>
+
+  <h3>Первые представители ряда</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>n</th><th>Формула</th><th>Название</th><th>Радикал</th><th>t<sub>кип</sub>, °C</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>CH₄</td><td>Метан</td><td>Метил –CH₃</td><td>−161,6</td></tr>
+        <tr><td>2</td><td>C₂H₆</td><td>Этан</td><td>Этил –C₂H₅</td><td>−88,6</td></tr>
+        <tr><td>3</td><td>C₃H₈</td><td>Пропан</td><td>Пропил –C₃H₇</td><td>−42,1</td></tr>
+        <tr><td>4</td><td>C₄H₁₀</td><td>Бутан</td><td>Бутил –C₄H₉</td><td>−0,5</td></tr>
+        <tr><td>5</td><td>C₅H₁₂</td><td>Пентан</td><td>Пентил –C₅H₁₁</td><td>+36,1</td></tr>
+        <tr><td>6</td><td>C₆H₁₄</td><td>Гексан</td><td>Гексил –C₆H₁₃</td><td>+68,7</td></tr>
+        <tr><td>7</td><td>C₇H₁₆</td><td>Гептан</td><td>Гептил –C₇H₁₅</td><td>+98,4</td></tr>
+        <tr><td>8</td><td>C₈H₁₈</td><td>Октан</td><td>Октил –C₈H₁₇</td><td>+125,7</td></tr>
+        <tr><td>9</td><td>C₉H₂₀</td><td>Нонан</td><td>Нонил –C₉H₁₉</td><td>+150,8</td></tr>
+        <tr><td>10</td><td>C₁₀H₂₂</td><td>Декан</td><td>Децил –C₁₀H₂₁</td><td>+174,1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <strong>Правило номенклатуры ИЮПАК:</strong> выбирают самую длинную углеродную цепь,
+    нумеруют её с того конца, к которому ближе заместитель, и перечисляют заместители
+    в алфавитном порядке. Например: 2-метилбутан, 2,2-диметилпропан.
+  </div>
+</section>
+
+<!-- 3. ИЗОМЕРИЯ -->
+<section id="isomerism">
+  <h2>Изомерия</h2>
+
+  <h3>1. Структурная изомерия (углеродного скелета)</h3>
+  <p>
+    Первый алкан, у которого возможна изомерия, — <strong>бутан C₄H₁₀</strong> (2 изомера).
+    Число изомеров быстро растёт: у C₅H₁₂ — 3, у C₆H₁₄ — 5, у C₇H₁₆ — 9, у C₁₀H₂₂ — уже 75.
+  </p>
+  <div class="reaction">
+    C₄H₁₀:  н-бутан CH₃–CH₂–CH₂–CH₃   и   изобутан (2-метилпропан) CH₃–CH(CH₃)–CH₃
+  </div>
+
+  <h3>2. Поворотная (конформационная) изомерия</h3>
+  <p>
+    Вокруг одинарной связи C–C возможно свободное вращение. При этом возникают
+    <strong>конформеры</strong> — заслонённая и заторможённая конформации (например, у этана).
+    Это не изомеры в классическом смысле: они переходят друг в друга без разрыва связей.
+  </p>
+
+  <h3>3. Оптическая (зеркальная) изомерия</h3>
+  <p>
+    Возникает у алканов, содержащих <strong>асимметрический атом углерода</strong>
+    (связан с четырьмя разными группами). Пример — 3-метилгексан:
+    атом C3 связан с –H, –CH₃, –C₂H₅ и –C₃H₇.
+  </p>
+  <div class="note">
+    Межклассовой изомерии у алканов нет: они изомерны только друг другу.
+    Циклоалканы имеют другую общую формулу (C<sub>n</sub>H<sub>2n</sub>) и алканам не изомерны.
+  </div>
+</section>
+
+<!-- 4. ФИЗИЧЕСКИЕ СВОЙСТВА -->
+<section id="physical">
+  <h2>Физические свойства</h2>
+  <div class="grid">
+    <div class="tile">
+      <h4>C₁–C₄</h4>
+      <p>Газы без цвета и запаха (природный газ перед подачей в сеть одорируют)</p>
+    </div>
+    <div class="tile">
+      <h4>C₅–C₁₅</h4>
+      <p>Бесцветные жидкости с характерным запахом, легче воды</p>
+    </div>
+    <div class="tile">
+      <h4>C₁₆ и выше</h4>
+      <p>Твёрдые вещества (парафины, вазелин, битум)</p>
+    </div>
+    <div class="tile">
+      <h4>Растворимость</h4>
+      <p>Практически нерастворимы в воде, хорошо растворимы в органических растворителях</p>
+    </div>
+  </div>
+
+  <h3>Закономерности</h3>
+  <ul>
+    <li>С ростом молекулярной массы <strong>растут</strong> температуры плавления и кипения
+        (увеличивается сила межмолекулярного взаимодействия).</li>
+    <li>У <strong>разветвлённых</strong> изомеров температура кипения <strong>ниже</strong>,
+        чем у линейных с той же формулой (меньше площадь контакта молекул).</li>
+    <li>Плотность алканов меньше 1 г/см³ — они плавают на воде.</li>
+    <li>Алканы — <strong>диэлектрики</strong>: не проводят электрический ток.</li>
+    <li>Жидкие и твёрдые алканы — хорошие растворители жиров и масел.</li>
+  </ul>
+  <div class="note">
+    Метан, этан, пропан и бутан не имеют запаха. Характерный «запах газа» — это добавленные одоранты (например, этилмеркаптан).
+  </div>
+</section>
+
+<!-- 5. ХИМИЧЕСКИЕ СВОЙСТВА -->
+<section id="chemical">
+  <h2>Химические свойства</h2>
+  <p>
+    Алканы — <strong>малоактивные</strong> соединения: σ-связи C–C и C–H прочны и неполярны.
+    Реакции идут преимущественно при нагревании, облучении УФ или в присутствии катализаторов,
+    и почти все они <strong>радикальные</strong>. Типичные направления:
+  </p>
+
+  <h3>1. Горение (полное окисление)</h3>
+  <div class="reaction">CₙH₂ₙ₊₂ + (3n+1)/2 O₂ → n CO₂ + (n+1) H₂O + Q</div>
+  <p>При недостатке кислорода образуются CO (угарный газ) или сажа — это опасно.</p>
+
+  <h3>2. Галогенирование (на свету или при УФ)</h3>
+  <div class="reaction">CH₄ + Cl₂ —(hv)→ CH₃Cl + HCl</div>
+  <p>Протекает по цепному радикальному механизму:</p>
+  <ul>
+    <li><strong>Инициирование:</strong> Cl₂ —(hv)→ 2Cl·</li>
+    <li><strong>Рост цепи:</strong> Cl· + CH₄ → CH₃· + HCl; &nbsp; CH₃· + Cl₂ → CH₃Cl + Cl·</li>
+    <li><strong>Обрыв цепи:</strong> рекомбинация радикалов (CH₃· + Cl· → CH₃Cl и т.п.)</li>
+  </ul>
+  <p>
+    На свету реакция идёт дальше: CH₃Cl → CH₂Cl₂ → CHCl₃ → CCl₄.
+    Реакция со фтором идёт со взрывом, с бромом — труднее, с йодом практически не идёт.
+  </p>
+
+  <h3>3. Нитрование (реакция М. И. Коновалова)</h3>
+  <div class="reaction">RH + HNO₃ (разб.) —(140–150 °C, давл.)→ RNO₂ + H₂O</div>
+  <p>Так получают нитрометан, нитроэтан и другие нитроалканы.</p>
+
+  <h3>4. Сульфохлорирование</h3>
+  <div class="reaction">RH + SO₂ + Cl₂ —(hv)→ RSO₂Cl + HCl</div>
+
+  <h3>5. Дегидрирование (отщепление водорода)</h3>
+  <div class="reaction">CₙH₂ₙ₊₂ —(Ni, Pt, Cr₂O₃, t)→ CₙH₂ₙ + H₂</div>
+  <p>Промышленный способ получения алкенов.</p>
+
+  <h3>6. Крекинг (термический и каталитический)</h3>
+  <div class="reaction">C₁₀H₂₂ —(t, кат.)→ C₅H₁₂ + C₅H₁₀</div>
+  <p>Разрыв цепи C–C с образованием алкана и алкена (реже — ароматики).</p>
+
+  <h3>7. Изомеризация</h3>
+  <div class="reaction">н-бутан —(AlCl₃, t)→ изобутан</div>
+  <p>Используется в нефтепереработке для повышения октанового числа бензина.</p>
+
+  <h3>8. Каталитическое окисление</h3>
+  <div class="reaction">2CH₄ + O₂ —(кат.)→ 2CH₃OH&nbsp;&nbsp;(частичное окисление)</div>
+  <p>Мягкое окисление (например, перманганатом калия при обычных условиях) алканы не дают.</p>
+</section>
+
+<!-- 6. ПОЛУЧЕНИЕ -->
+<section id="synthesis">
+  <h2>Способы получения</h2>
+
+  <h3>Природные источники</h3>
+  <p>
+    Главные источники алканов — <strong>нефть, природный газ, попутный нефтяной газ,
+    каменный уголь и горючие сланцы</strong>. Разделение производят ректификацией
+    (фракционной перегонкой) и крекингом.
+  </p>
+
+  <h3>Лабораторные и синтетические методы</h3>
+
+  <p><strong>1. Гидрирование алкенов и алкинов</strong></p>
+  <div class="reaction">CₙH₂ₙ + H₂ —(Ni, Pt, Pd)→ CₙH₂ₙ₊₂</div>
+
+  <p><strong>2. Реакция А. М. Вюрца (удлинение цепи)</strong></p>
+  <div class="reaction">2R–X + 2Na → R–R + 2NaX</div>
+  <p>Применяют для получения симметричных алканов из галогеналканов.</p>
+
+  <p><strong>3. Синтез А. Кольбе (электролиз солей карбоновых кислот)</strong></p>
+  <div class="reaction">2RCOONa + 2H₂O —(электролиз)→ R–R + 2CO₂ + H₂ + 2NaOH</div>
+
+  <p><strong>4. Декарбоксилирование солей карбоновых кислот</strong></p>
+  <div class="reaction">RCOONa + NaOH —(сплавление, t)→ RH + Na₂CO₃</div>
+
+  <p><strong>5. Гидролиз карбидов металлов</strong></p>
+  <div class="reaction">Al₄C₃ + 12H₂O → 4Al(OH)₃ + 3CH₄↑</div>
+
+  <p><strong>6. Синтез из синтез-газа (процесс Фишера–Тропша)</strong></p>
+  <div class="reaction">nCO + (2n+1)H₂ —(Co, Fe, t, p)→ CₙH₂ₙ₊₂ + nH₂O</div>
+
+  <p><strong>7. Взаимодействие реактивов Гриньяра с водой</strong></p>
+  <div class="reaction">R–MgX + H₂O → RH + Mg(OH)X</div>
+
+  <p><strong>8. Каталитическое гидрирование природного сырья</strong> — используется в промышленности
+  при производстве моторных топлив и парафинов.</p>
+</section>
+
+<!-- 7. КАЛЬКУЛЯТОР -->
+<section id="calc">
+  <h2>Интерактивный калькулятор гомолога</h2>
+  <p>Введите число атомов углерода <em>n</em> (1–20) — получите формулу, название, молярную массу, агрегатное состояние и (для первых десяти) температуру кипения.</p>
+
+  <div class="calc">
+    <div>
+      <label for="nInput">Число атомов углерода (n)</label>
+      <input type="number" id="nInput" min="1" max="20" value="5">
+    </div>
+    <button onclick="calculate()">Рассчитать</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="big" id="rFormula"></div>
+    <div class="row"><span>Название</span><span id="rName"></span></div>
+    <div class="row"><span>Молярная масса</span><span id="rMass"></span></div>
+    <div class="row"><span>Агрегатное состояние</span><span id="rState"></span></div>
+    <div class="row"><span>Температура кипения</span><span id="rBoil"></span></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Учебный справочник по органической химии · Алканы · C<sub>n</sub>H<sub>2n+2</sub>
+</footer>
+
+<script>
+  const names = ["","Метан","Этан","Пропан","Бутан","Пентан","Гексан","Гептан",
+                 "Октан","Нонан","Декан","Ундекан","Додекан","Тридекан",
+                 "Тетрадекан","Пентадекан","Гексадекан (цетан)","Гептадекан",
+                 "Октадекан","Нонадекан","Эйкозан"];
+
+  const boiling = {1:-161.6, 2:-88.6, 3:-42.1, 4:-0.5, 5:36.1,
+                   6:68.7, 7:98.4, 8:125.7, 9:150.8, 10:174.1};
+
+  function sub(num){
+    return String(num).split("").map(d => "₀₁₂₃₄₅₆₇₈₉"[+d]).join("");
+  }
+
+  function calculate(){
+    let n = parseInt(document.getElementById("nInput").value, 10);
+
+    if (isNaN(n)  n < 1  n > 20) {
+      alert("Введите целое число от 1 до 20.");
+      return;
+    }
+
+    const h = 2 * n + 2;
+    const molarMass = 12.011 * n + 1.008 * h;
+
+    let state;
+    if (n <= 4)       state = "Газ";
+    else if (n <= 15) state = "Жидкость";
+    else              state = "Твёрдое вещество";
+
+    document.getElementById("rFormula").innerHTML =
+      "C" + sub(n) + "H" + sub(h);
+    document.getElementById("rName").textContent  = names[n] || "—";
+    document.getElementById("rMass").textContent  =
+      molarMass.toFixed(2).replace(".", ",") + " г/моль";
+    document.getElementById("rState").textContent = state;
+    document.getElementById("rBoil").textContent  =
+      (boiling[n] !== undefined)
+        ? boiling[n] + " °C (н-изомер)"
+        : "н/д (для н-изомера — см. справочник)";
+
+    document.getElementById("result").classList.add("show");
+  }
+
+  // расчёт при загрузке страницы
+  window.addEventListener("DOMContentLoaded", calculate);
+
+  // расчёт по Enter
+  document.getElementById("nInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") calculate();
+  });
+</script>
+
+</body>
+</html>
